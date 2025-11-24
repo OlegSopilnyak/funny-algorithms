@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Optional;
@@ -24,6 +25,7 @@ class FileSinkImplTest {
     @AfterEach
     void tearDown() {
         service.stopMessagesQueueScan();
+        new File(delegate.logDirectory, delegate.logFileName).delete();
     }
 
     @Test
