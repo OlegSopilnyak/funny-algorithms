@@ -7,12 +7,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class AlgorithmTest {
 
+    @DisplayName("Testing FizzBuzz algorithm for 15 counters")
     @Test
     void shouldProcessFizzBuzz_15() {
         int expected = 15;
@@ -26,6 +28,7 @@ class AlgorithmTest {
         assertThat(result).isEqualTo(Arrays.asList(expectedResult));
     }
 
+    @DisplayName("Testing FizzBuzz algorithm for the counters range between 20 to 200")
     @ParameterizedTest
     @MethodSource("provideIntRange")
     void shouldProcessFizzBuzz_from_20_to_200(int expected) {
@@ -34,9 +37,23 @@ class AlgorithmTest {
         Algorithm.fizzBuzz(expected, result::add);
 
         assertThat(result).hasSize(expected);
+        IntStream.range(0, expected).forEach(i -> checkValue(i + 1, result.get(i)));
     }
 
+    // private methods
     private static Stream<Integer> provideIntRange(){
         return IntStream.rangeClosed(20, 200).boxed();
+    }
+
+    private static void checkValue(int counter, String value) {
+        if (counter % 3 == 0 && counter % 5 == 0) {
+            assertThat(value).isEqualTo("FizzBuzz");
+        } else if (counter % 3 == 0) {
+            assertThat(value).isEqualTo("Fizz");
+        } else if (counter % 5 == 0) {
+            assertThat(value).isEqualTo("Buzz");
+        } else  {
+            assertThat(value).isEqualTo(String.valueOf(counter));
+        }
     }
 }
