@@ -46,11 +46,11 @@ class Algorithm {
         );
     }
 
-    public static void fizzBuzz(int n) {
+    static void fizzBuzz(int n) {
         fizzBuzz(n, System.out::println);
     }
 
-    public static void fizzBuzz(int n, Consumer<String> resultOutput) {
+    static void fizzBuzz(int n, Consumer<String> resultOutput) {
         IntStream.rangeClosed(1, n).mapToObj(fizzBuzzChain::transform).forEach(resultOutput);
     }
 }

@@ -1,6 +1,6 @@
 package oleg.sopilnyak.logz.logsink.service.impl;
 
-import jakarta.annotation.PostConstruct;
+import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import oleg.sopilnyak.logz.logsink.service.PutMessageService;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,7 +1,7 @@
 package oleg.sopilnyak.logz.logsink.service.impl;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import oleg.sopilnyak.logz.logsink.service.FileSink;
 import oleg.sopilnyak.logz.logsink.service.PutMessageService;
