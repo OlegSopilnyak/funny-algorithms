@@ -3,9 +3,12 @@ package oleg.sopilnyak.brace;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
+/**
+ * Te parent of any kind braces
+ */
 @Data
 @SuperBuilder
-public class Brace {
+public class BracesSort {
     private char open;
     private char close;
 
