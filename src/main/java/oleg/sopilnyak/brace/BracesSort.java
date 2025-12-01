@@ -9,8 +9,8 @@ import lombok.experimental.SuperBuilder;
 @Data
 @SuperBuilder
 public class BracesSort {
-    protected char open;
-    protected char close;
+    protected final char open;
+    protected final char close;
 
     public boolean isOpening(char symbol) {
         return open == symbol;

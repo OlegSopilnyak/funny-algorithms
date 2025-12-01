@@ -16,7 +16,7 @@ public class Algorithm {
      * @return minimum number of swaps needed
      */
     public static int minSwapsToBalance(String expression) {
-        BraceToSwap brace = BraceToSwap.builder().open('(').close(')').build();
+        BraceToSwap brace = BraceToSwap.builder().open('{').close('}').balanceMatter(true).build();
         if (isNull(expression) || expression.trim().isEmpty()) {
             return -1;
         }
@@ -27,25 +27,45 @@ public class Algorithm {
     // nested classes
     @SuperBuilder
     private static class BraceToSwap extends BracesSort {
+        // Quantity of braces to swap
         @Builder.Default
-        private int imbalance = 0; // Tracks how many unmatched closing braces we have
+        private int toSwap = 0;
+        // How many unmatched closing braces we have
         @Builder.Default
-        private int opened = 0; // Tracks number of unmatched opening braces
+        int balance = 0;
+        // counters of open/close braces
+        @Builder.Default
+        private int countLeft = 0;
+        @Builder.Default
+        private int countRight = 0;
+        @Builder.Default
+        // flag do we need balanced braces
+        private boolean balanceMatter = false;
+
         public void update(char symbol) {
+            if (!myOwnSymbolValue(symbol)) {
+                // skip non brace symbol
+                return;
+            }
+
             if (symbol == open) {
-                opened++;
-            } if (symbol == close) {
-                if (opened > 0) {
-                    opened--;
-                } else {
-                    imbalance++;
-                    opened = 0;
-                }
+                // left (open) brace's symbol
+                balance++;
+                countLeft++;
+            } else {
+                // right (close) brace's symbol
+                balance--;
+                countRight++;
+            }
+            // If balance goes negative, we have more closing than opening so far
+            if (balance < 0) {
+                toSwap++;
+                balance = countRight - countLeft; // After swap, we have one more opening than closing
             }
         }
 
-        public  int swapsCount() {
-            return opened > 0 ? -1 : (imbalance + 1) / 2;
+        public int swapsCount() {
+            return countRight != countLeft && balanceMatter ? -1 : toSwap;
         }
     }
 }

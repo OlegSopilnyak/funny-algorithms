@@ -18,5 +18,6 @@ class AlgorithmTest {
 
         assertFalse(Algorithm.isBalancedParentheses("((({}{} lack of closing braces->)) good->()"));
         assertFalse(Algorithm.isBalancedParentheses("()(){}{} bad parentheses order-> ({)} "));
+        assertFalse(Algorithm.isBalancedParentheses("}{{}}{{{"));
     }
 }
