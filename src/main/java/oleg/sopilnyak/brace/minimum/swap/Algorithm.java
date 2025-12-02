@@ -32,35 +32,32 @@ public class Algorithm {
         private int toSwap = 0;
         // How many unmatched closing braces we have
         @Builder.Default
-        int balance = 0;
+        int notBalanced = 0;
         // counters of open/close braces
         @Builder.Default
         private int countLeft = 0;
         @Builder.Default
         private int countRight = 0;
         @Builder.Default
-        // flag do we need balanced braces
+        // flag are we need strongly balanced braces
         private boolean balanceMatter = false;
 
         public void update(char symbol) {
-            if (!myOwnSymbolValue(symbol)) {
-                // skip non brace symbol
-                return;
-            }
-
-            if (symbol == open) {
-                // left (open) brace's symbol
-                balance++;
-                countLeft++;
-            } else {
-                // right (close) brace's symbol
-                balance--;
-                countRight++;
-            }
-            // If balance goes negative, we have more closing than opening so far
-            if (balance < 0) {
-                toSwap++;
-                balance = countRight - countLeft; // After swap, we have one more opening than closing
+            if (myOwnSymbolValue(symbol)) {
+                // checking incoming symbol
+                if (isOpening(symbol)) {
+                    // left (open) brace's symbol
+                    countLeft++;
+                    if (notBalanced > 0) {
+                        // detected unclosed (non balanced) parentheses (needs to swap them further to balance)
+                        toSwap += notBalanced;
+                        notBalanced--;
+                    }
+                } else {
+                    // right (close) brace's symbol
+                    countRight++;
+                    notBalanced = countRight - countLeft;
+                }
             }
         }
 
